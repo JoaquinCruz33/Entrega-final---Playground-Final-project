@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+    </head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="{% url 'about' %}">Acerca de mí</a></li>
+            <li><a href="{% url 'page_list' %}">Páginas</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'profile_detail' user.pk %}">Perfil ({{ user.username }})</a></li>
+                <li><a href="{% url 'received_messages' %}">Mensajes</a></li>
+                <li><form action="{% url 'logout' %}" method="post" style="display: inline;">
+    {% csrf_token %} {# ¡Importante para Django! #}
+    <button type="submit" class="nav-link btn btn-link">Cerrar Sesión</button>
+</form> </li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'signup' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main>
+        {# Mensajes de Django #}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Mi Blog</p>
+    </footer>
+</body>
+</html>

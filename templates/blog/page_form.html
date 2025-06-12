@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if form.instance.pk %}Editar Página{% else %}Crear Nueva Página{% endif %}
+{% endblock %}
+
+{% block content %}
+    <h2>{% if form.instance.pk %}Editar Página{% else %}Crear Nueva Página{% endif %}</h2>
+    <form method="post" enctype="multipart/form-data"> {# IMPORTANTE para subida de imágenes #}
+        {% csrf_token %}
+        {{ form.media }} {# Necesario para que CKEditor se cargue correctamente #}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <p><a href="{% url 'page_list' %}">Cancelar y Volver</a></p>
+{% endblock %}

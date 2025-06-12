@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Mensajes Recibidos{% endblock %}
+
+{% block content %}
+    <h2>Mensajes Recibidos</h2>
+    <p><a href="{% url 'send_message' %}">Enviar Nuevo Mensaje</a></p>
+    <p><a href="{% url 'sent_messages' %}">Ver Mensajes Enviados</a></p>
+    <hr>
+
+    {% if messages %}
+        <div class="message-list">
+            {% for message in messages %}
+                <div class="message-item {% if not message.is_read %}unread{% endif %}">
+                    <p><strong>De:</strong> {{ message.sender.username }}</p>
+                    <p><strong>Asunto:</strong> <a href="{% url 'message_detail' message.pk %}">{{ message.subject }}</a></p>
+                    <p><strong>Recibido el:</strong> {{ message.sent_at|date:"d M, Y H:i" }}</p>
+                    {% if not message.is_read %}
+                        <p style="font-weight: bold; color: blue;">(No leído)</p>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No tienes mensajes recibidos.</p>
+    {% endif %}
+{% endblock %}

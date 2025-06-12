@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+    <h2>Editar Perfil</h2>
+    <form method="post" enctype="multipart/form-data"> {# IMPORTANTE para subida de archivos #}
+        {% csrf_token %}
+        <h3>Datos de Usuario</h3>
+        {{ u_form.as_p }} {# Formulario de actualización de usuario #}
+        <h3>Datos de Perfil</h3>
+        {{ p_form.as_p }} {# Formulario de actualización de perfil #}
+        <button type="submit">Guardar Cambios</button>
+    </form>
+    <p><a href="{% url 'profile_detail' user.pk %}">Volver al Perfil</a></p>
+{% endblock %}

@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+venv/  # Directorio de tu entorno virtual
+env/   # Otro nombre común para entornos virtuales
+*.env # Archivos de entorno si los usas para variables secretas
+
+# Django
+db.sqlite3 # ¡No subir la base de datos!
+media/     # ¡No subir archivos de medios subidos por usuarios!
+static_root/ # Si usas collectstatic, no subir la carpeta de estáticos recolectados
+myblog/settings/local.py # Si implementas configuración local para secretos
+
+# IDEs
+.idea/ # Directorio de PyCharm/IntelliJ
+.vscode/ # Directorio de VS Code
+
+# Otros
+*.log
+*.pot
+*.mo
+.DS_Store # Archivos de macOS

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Perfil de {{ profile.user.username }}{% endblock %}
+
+{% block content %}
+    <h2>Perfil de {{ profile.user.username }}</h2>
+    <img src="{{ profile.avatar.url }}" alt="Avatar de {{ profile.user.username }}" width="150">
+    <p><strong>Nombre de usuario:</strong> {{ profile.user.username }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    {% if profile.bio %}
+        <p><strong>Biografía:</strong> {{ profile.bio }}</p>
+    {% endif %}
+
+    <p><a href="{% url 'profile_update' profile.user.pk %}">Editar Perfil</a></p>
+    <p><a href="{% url 'password_change' %}">Cambiar Contraseña</a></p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Mensaje: {{ message.subject }}{% endblock %}
+
+{% block content %}
+    <h2>Mensaje</h2>
+    <p><strong>De:</strong> {{ message.sender.username }}</p>
+    <p><strong>Para:</strong> {{ message.receiver.username }}</p>
+    <p><strong>Asunto:</strong> {{ message.subject }}</p>
+    <p><strong>Fecha:</strong> {{ message.sent_at|date:"d M, Y H:i" }}</p>
+    <hr>
+    <p>{{ message.body|linebreaksbr }}</p> {# Mantiene saltos de línea #}
+    <hr>
+    <p>
+        <a href="{% url 'send_message' %}?reply_to={{ message.pk }}">Responder</a> |
+        <a href="{% url 'received_messages' %}">Volver a Recibidos</a> |
+        <a href="{% url 'sent_messages' %}">Volver a Enviados</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}
+            <h3>{{ page.subtitle }}</h3>
+        {% endif %}
+        <p>Publicado por: **{{ page.author.username }}** el {{ page.created_at|date:"d M, Y" }}</p>
+        {% if page.image %}
+            <img src="{{ page.image.url }}" alt="{{ page.title }}" style="max-width: 100%; height: auto;">
+        {% endif %}
+        <div class="page-content">
+            {{ page.content|safe }} {# El contenido enriquecido se renderiza como HTML #}
+        </div>
+        <p><a href="{% url 'page_list' %}">Volver a todas las páginas</a></p>
+        {% if user.is_authenticated and user == page.author or user.is_superuser %}
+            <a href="{% url 'page_update' page.pk %}">Editar Página</a> |
+            <a href="{% url 'page_delete' page.pk %}">Eliminar Página</a>
+        {% endif %}
+    </article>
+{% endblock %}
